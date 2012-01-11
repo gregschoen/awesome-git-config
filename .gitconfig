@@ -95,7 +95,7 @@
 	ui = auto
 
 [core]
-	autocrlf = true
+	autocrlf = input
 	ignorecase = false
 	whitespace = cr-at-eol
 	editor = vim
