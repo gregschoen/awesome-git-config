@@ -87,6 +87,9 @@
 	# number of non-merge commits 
 	peeps = !git log --pretty=format:%aN --no-merges | sort | uniq -c | sort -rn
 
+	# awesome placeholders
+	crunk = log
+
 [color]
 	ui = auto
 
