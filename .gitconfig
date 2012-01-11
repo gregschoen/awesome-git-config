@@ -1,0 +1,98 @@
+
+# ln -s ~/github/awesome-git-config/.gitconfig .gitconfig
+
+[alias]
+	# short aliases
+	st = status 
+	co = checkout
+	ci = commit
+	br = branch
+	df = diff
+	lg = log -p
+
+	unstage = reset HEAD
+	undo-commit = reset --soft HEAD^
+	me = config user.name
+
+	# interactive rebase
+	ir = !git rebase -i origin/master
+	smash = !git ir
+
+	# log aliases
+	log-branch = log origin/master..
+	blog = !git log-branch
+	mlog = !git log --committer=\"`git me`\"
+
+	# update current branch
+	update = !git fetch origin && git rebase -p origin/master
+	up = !git update
+
+	# show short commit and message for repo
+	all = !git log --pretty=format:'[%C(yellow)%h%C(reset)] %s'
+	
+	# creates a diff of current branch against supplied branch, usage: git export-branch [refbranch]
+	branch-name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
+	export-branch = !git format-patch --stdout $1 > ~/branches/`git branch-name`.diff
+	
+	# what commits have I done today?
+	today = !git log --since='12am' --pretty=format:'[%C(yellow)%h%C(reset)] %s' --abbrev-commit --no-merges --all --committer=\"`git me`\"
+	today-text = !git --no-pager today --pretty=format:'[%h] %s'
+	
+	# files different from master on current branch
+	fdm = !git diff --name-status origin/master.. 
+
+	# last commit info in svn style
+	last = !git show --name-status
+
+	# last commit only certain type of modification
+	mlast = !git last --pretty=format:"" | awk 'match($1, /M/) {print $2}'
+	alast = !git last --pretty=format:"" | awk 'match($1, /A/) {print $2}'
+	dlast = !git last --pretty=format:"" | awk 'match($1, /D/) {print $2}'
+
+	# current branch: merge, push, non-forced delete branch, show info
+	done = !git update && \
+		git co master && \
+		git pull && \
+		git merge @{-1} && \
+		git push origin master && \
+		git branch -d @{-1} &&  \
+		git show --name-status
+
+	# Usage: `git nuke my-old-branch`
+	# (Checks out master and does a non-forced delete on the branch entered)
+	nuke = !git co master && sh -c 'git br -d $1' -
+
+	# Usage: `git sync`
+	# update current branch and master
+	sync = !git update && \
+		git co master && \
+		git pull && \
+		git co @{-1} 
+
+	# save game
+	save = !git commit -m \"save game\" .
+
+	# make new branch of master
+	spawn = !sh -c 'git checkout -b $1 master' - 
+
+	# cleanup repo
+	cleanup = !git remote prune origin && git gc && git clean -dfx
+
+	# list files changed by last commit in absolute location
+	list = !git show --pretty=format:"" --name-only | sed '/^$/d' | sed 's|^|/var/www/|g'
+
+	# give a count of dirty files
+	dirty = !git status --porcelain -uno | wc -l
+
+	# number of non-merge commits 
+	peeps = !git log --pretty=format:%aN --no-merges | sort | uniq -c | sort -rn
+
+[color]
+	ui = auto
+
+[core]
+	autocrlf = true
+	ignorecase = false
+	whitespace = cr-at-eol
+	editor = vim
+	
