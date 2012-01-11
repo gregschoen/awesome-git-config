@@ -10,7 +10,6 @@
 	df = diff
 	lg = log -p
 	rso = remote show origin
-
 	unstage = reset HEAD
 	undo-commit = reset --soft HEAD^
 	me = config user.name
@@ -59,16 +58,16 @@
 		git branch -d @{-1} &&  \
 		git show --name-status
 
-	# Usage: `git nuke my-old-branch`
-	# (Checks out master and does a non-forced delete on the branch entered)
-	nuke = !git co master && sh -c 'git br -d $1' -
-
 	# Usage: `git sync`
 	# update current branch and master
 	sync = !git update && \
 		git co master && \
 		git pull && \
 		git co @{-1} 
+
+	# Usage: `git nuke my-old-branch`
+	# (Checks out master and does a non-forced delete on the branch entered)
+	nuke = !git co master && sh -c 'git br -d $1' -
 
 	# save game
 	save = !git commit -m \"save game\" .
