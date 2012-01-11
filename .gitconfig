@@ -9,6 +9,7 @@
 	br = branch
 	df = diff
 	lg = log -p
+	rso = remote show origin
 
 	unstage = reset HEAD
 	undo-commit = reset --soft HEAD^
