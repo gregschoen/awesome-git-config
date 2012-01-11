@@ -10,9 +10,10 @@
 	df = diff
 	lg = log -p
 	rso = remote show origin
+	me = config user.name
+
 	unstage = reset HEAD
 	undo-commit = reset --soft HEAD^
-	me = config user.name
 
 	# interactive rebase
 	ir = !git rebase -i origin/master
