@@ -36,8 +36,8 @@
 	export-branch = !git format-patch --stdout $1 > ~/branches/`git branch-name`.diff
 	
 	# what commits have I done today?
-	today = !git log --since='12am' --pretty=format:'[%C(yellow)%h%C(reset)] %s' --abbrev-commit --no-merges --all --committer=\"`git me`\"
-	today-text = !git --no-pager today --pretty=format:'[%h] %s'
+	today = !git log --since='12am' --pretty=oneline --abbrev-commit --no-merges --all --committer=\"`git me`\"
+	today-text = !git --no-pager today --no-color
 	
 	# files different from master on current branch
 	fdm = !git diff --name-status origin/master.. 
@@ -70,10 +70,12 @@
 	# (Checks out master and does a non-forced delete on the branch entered)
 	nuke = !git co master && sh -c 'git br -d $1' -
 
-	# save game
-	save = !git commit -m \"save game\" .
+	# Usage: `git save`
+	# saves a commit in current branch: local branches you will be rebasing
+	save = !git commit -am \"save game\"
 
-	# make new branch of master
+	# Usage: `git spawn my-new-branch`
+	# make new branch based on master no matter which branch is checked out
 	spawn = !sh -c 'git checkout -b $1 master' - 
 
 	# cleanup repo
@@ -91,6 +93,7 @@
 	# awesome placeholders
 	crunk = status
 	unfuck = status
+	deploy = status
 
 [color]
 	ui = auto
@@ -98,6 +101,6 @@
 [core]
 	autocrlf = input
 	ignorecase = false
-	whitespace = cr-at-eol
+	whitespace = lf-at-eol
 	editor = vim
 	
