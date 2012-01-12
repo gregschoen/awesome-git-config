@@ -1,0 +1,45 @@
+#!/bin/bash
+
+DELETE=0
+
+while getopts d OPTION
+do
+	case $OPTION in
+		d)	DELETE=1;;
+	esac
+done
+
+SQUASH="save game"
+SAVEGAME_COMMITS=`git --no-pager blog --pretty=oneline | grep "$SQUASH" | wc -l`
+BRANCHNAME=`git branch-name`
+
+if [ $BRANCHNAME == "master" ] && [ $DELETE == "1" ]; then
+	echo -e "\033[31mYou cannot \`done\` on branch \`master\`!\033[0m"
+	exit
+fi
+
+if [ $DELETE = "1" ]; then
+	echo -e "\033[31mNote: \`$BRANCHNAME\` will be deleted!\033[0m"
+fi
+
+if [ $SAVEGAME_COMMITS != "0" ]; then
+	echo -e "\033[31mWarning! You have '$SQUASH' commits in \`$BRANCHNAME\`\033[0m"
+	git ir
+	SAVEGAME_COMMITS=`git --no-pager blog --pretty=oneline | grep "$SQUASH" | wc -l`
+fi
+
+if [ $SAVEGAME_COMMITS = "0" ]; then
+	echo -e "\033[32mCongrats! You have NO '$SQUASH' commits in \`$BRANCHNAME\`\033[0m"
+
+	git update
+	git co master
+	git pull
+	git merge @{-1}
+	git push origin master
+
+	if [ $DELETE != "1" ]; then
+		git branch -d @{-1}
+	fi
+
+	git show --name-status
+fi
