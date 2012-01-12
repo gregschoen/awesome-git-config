@@ -11,13 +11,15 @@
 	lg = log -p
 	rso = remote show origin
 	me = config user.name
+	
+	up = !git update
+	smash = !git ir
 
 	unstage = reset HEAD
 	undo-commit = reset --soft HEAD^
 
 	# interactive rebase
 	ir = !git rebase -i origin/master
-	smash = !git ir
 
 	# log aliases
 	log-branch = log origin/master..
@@ -26,17 +28,18 @@
 
 	# update current branch
 	update = !git fetch origin && git rebase -p origin/master
-	up = !git update
 
-	# show short commit and message for repo
-	all = !git log --pretty=format:'[%C(yellow)%h%C(reset)] %s'
-	
 	# creates a diff of current branch against supplied branch, usage: git export-branch [refbranch]
 	branch-name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
 	export-branch = !git format-patch --stdout $1 > ~/branches/`git branch-name`.diff
 	
-	# what commits have I done today?
-	today = !git log --since='12am' --pretty=oneline --abbrev-commit --no-merges --all --committer=\"`git me`\"
+	# all commits that aren't merges on all branches
+	all = !git log --pretty=oneline --abbrev-commit --all --no-merges
+
+	# all commits today for only me
+	today = !git all --since='12am' --committer=\"`git me`\"
+
+	# today's commits without formatting or paging
 	today-text = !git --no-pager today --no-color
 	
 	# files different from master on current branch
@@ -44,11 +47,12 @@
 
 	# last commit info in svn style
 	last = !git show --name-status
+	last-files = !git last --pretty=format:""
 
 	# last commit only certain type of modification
-	mlast = !git last --pretty=format:"" | awk 'match($1, /M/) {print $2}'
-	alast = !git last --pretty=format:"" | awk 'match($1, /A/) {print $2}'
-	dlast = !git last --pretty=format:"" | awk 'match($1, /D/) {print $2}'
+	mlast = !git last-files | awk 'match($1, /M/) {print $2}'
+	alast = !git last-files | awk 'match($1, /A/) {print $2}'
+	dlast = !git last-files | awk 'match($1, /D/) {print $2}'
 
 	# current branch: merge, push, non-forced delete branch, show info
 	done = !git update && \
@@ -101,6 +105,6 @@
 [core]
 	autocrlf = input
 	ignorecase = false
-	whitespace = lf-at-eol
+	whitespace = lf-at-eol # not sure this actually does anything
 	editor = vim
 	
