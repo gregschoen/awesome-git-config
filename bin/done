@@ -31,10 +31,10 @@ fi
 if [ $SAVEGAME_COMMITS = "0" ]; then
 	echo -e "\033[32mCongrats! You have NO '$SQUASH' commits in \`$BRANCHNAME\`\033[0m"
 
-	git update
-	git co master
-	git pull
-	git merge @{-1}
+	git update && \
+	git co master && \
+	git pull && \
+	git merge @{-1} && \
 	git push origin master
 
 	if [ $DELETE != "1" ]; then
