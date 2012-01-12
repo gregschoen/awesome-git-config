@@ -55,7 +55,8 @@
 	dlast = !git last-files | awk 'match($1, /D/) {print $2}'
 
 	# current branch: merge, push, non-forced delete branch, show info
-	done = !sh -c '~/bin/donetest -d' - 
+	done = !sh -c '~/bin/done -d'
+	publish = !sh -c '~/bin/done' 
 
 	# Usage: `git sync`
 	# update current branch and master
