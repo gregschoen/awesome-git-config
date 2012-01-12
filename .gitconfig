@@ -55,13 +55,7 @@
 	dlast = !git last-files | awk 'match($1, /D/) {print $2}'
 
 	# current branch: merge, push, non-forced delete branch, show info
-	done = !git update && \
-		git co master && \
-		git pull && \
-		git merge @{-1} && \
-		git push origin master && \
-		git branch -d @{-1} &&  \
-		git show --name-status
+	done = !sh -c '~/bin/donetest -d' - 
 
 	# Usage: `git sync`
 	# update current branch and master
@@ -105,6 +99,6 @@
 [core]
 	autocrlf = input
 	ignorecase = false
-	whitespace = lf-at-eol # not sure this actually does anything
+	whitespace = cr-at-eol
 	editor = vim
 	
