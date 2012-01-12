@@ -39,7 +39,7 @@ if [ $SAVEGAME_COMMITS = "0" ]; then
 	git merge @{-1} && \
 	git push origin master
 
-	if [ $DELETE != "1" ]; then
+	if [ $DELETE = "1" ]; then
 		git branch -d @{-1}
 	fi
 
