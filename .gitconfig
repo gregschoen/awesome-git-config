@@ -54,28 +54,32 @@
 	alast = !git last-files | awk 'match($1, /A/) {print $2}'
 	dlast = !git last-files | awk 'match($1, /D/) {print $2}'
 
+	# `git done`
 	# current branch: merge, push, non-forced delete branch, show info
 	done = !sh -c '~/bin/done -d'
-	publish = !sh -c '~/bin/done' 
+	
+	# `git publish`
+	# current branch: merge, push, show info
+	publish = !sh -c '~/bin/done'
 
-	# Usage: `git sync`
+	# `git spawn my-new-branch`
+	# make new branch based on master no matter which branch is checked out
+	spawn = !sh -c 'git checkout -b $1 master' - 
+
+	# `git nuke my-old-branch`
+	# (Checks out master and does a non-forced delete on the branch entered)
+	nuke = !git co master && sh -c 'git br -d $1' -
+
+	# `git sync`
 	# update current branch and master
 	sync = !git update && \
 		git co master && \
 		git pull && \
 		git co @{-1} 
 
-	# Usage: `git nuke my-old-branch`
-	# (Checks out master and does a non-forced delete on the branch entered)
-	nuke = !git co master && sh -c 'git br -d $1' -
-
-	# Usage: `git save`
+	# `git save`
 	# saves a commit in current branch: local branches you will be rebasing
 	save = !git commit -am \"save game\"
-
-	# Usage: `git spawn my-new-branch`
-	# make new branch based on master no matter which branch is checked out
-	spawn = !sh -c 'git checkout -b $1 master' - 
 
 	# cleanup repo
 	cleanup = !git remote prune origin && git gc && git clean -dfx
