@@ -33,8 +33,8 @@ fi
 if [ $SAVEGAME_COMMITS = "0" ]; then
 	echo -e "\033[32mCongrats! You have NO '$SQUASH' commits in \`$BRANCHNAME\`\033[0m"
 
-	git fetch origin && \\
-	git rebase -p origin/master \\
+	git fetch origin && \
+	git rebase -p origin/master \
 	git checkout master && \
 	git pull && \
 	git merge @{-1} && \
