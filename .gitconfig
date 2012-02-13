@@ -62,6 +62,10 @@
 	# current branch: merge, push, show info
 	publish = !sh -c '~/bin/done'
 
+	# `git lint`
+	# lints all .php files that are different between current branch and origin/master
+	lint = !sh -c '~/bin/lint'
+
 	# `git spawn my-new-branch`
 	# make new branch based on master no matter which branch is checked out
 	spawn = !sh -c 'git checkout -b $1 master' - 

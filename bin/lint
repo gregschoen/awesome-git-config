@@ -1,0 +1,17 @@
+#!/bin/bash
+
+FILES=`git diff origin/master.. --pretty=format:"" --name-only | sed '/^$/d'`
+
+for file in $FILES
+do
+	FILENAME=$(basename $file)
+	EXT=${FILENAME##*.}
+
+	if [[ "$EXT" == "php" ]]; then
+		OUTPUT=`php -l $file`
+	fi
+
+	if [[ "${OUTPUT:0:25}" != "No syntax errors detected" ]]; then
+		echo $OUTPUT
+	fi
+done
