@@ -1,6 +1,6 @@
 
 # Required Symbolic Links
-# ln -s ~/github/awesome-git-config/.gitconfig .gitconfig
+# ln -s ~/github/awesome-git-config/.gitconfig ~/.gitconfig
 # ln -s ~/github/awesome-git-config/bin/done ~/bin/done
 # ln -s ~/github/awesome-git-config/bin/lint ~/bin/lint
 
