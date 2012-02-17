@@ -32,7 +32,7 @@
 	mlog = !git log --committer=\"`git me`\"
 
 	# update current branch
-	update = !git fetch origin && git rebase -p origin/master
+	update = !sh -c 'git fetch origin && git rebase -p origin/${1-master}' -
 
 	# creates a diff of current branch against supplied branch, usage: git export-branch [refbranch]
 	branch-name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
