@@ -11,9 +11,13 @@ do
 	esac
 done
 
+# Reset $@
+shift `echo $OPTIND-1 | bc`
+
 SQUASH="save game"
 SAVEGAME_COMMITS=`git --no-pager blog --pretty=oneline | grep "$SQUASH" | wc -l`
 BRANCHNAME=`git branch-name`
+BRANCHORIG=${1-master}
 
 if [ $BRANCHNAME == "master" ] && [ $DELETE == "1" ]; then
 	echo -e "\033[31mYou cannot \`done\` on branch \`master\`!\033[0m"
@@ -34,11 +38,11 @@ if [ $SAVEGAME_COMMITS = "0" ]; then
 	echo -e "\033[32mCongrats! You have NO '$SQUASH' commits in \`$BRANCHNAME\`\033[0m"
 
 	git fetch origin && \
-	git rebase -p origin/master && \
-	git checkout master && \
-	git pull && \
+	git rebase -p origin/$BRANCHORIG && \
+	git checkout $BRANCHORIG && \
+	git merge origin/$BRANCHORIG && \
 	git merge @{-1} && \
-	git push origin master
+	git push origin $BRANCHORIG
 
 	if [ $DELETE = "1" ]; then
 		git branch -d @{-1}
