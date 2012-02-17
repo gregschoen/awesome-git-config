@@ -24,7 +24,7 @@
 	undo-commit = reset --soft HEAD^
 
 	# interactive rebase
-	ir = !git rebase -i origin/master
+	ir = !sh -c 'git rebase -i origin/${1-master}' -
 
 	# log aliases
 	log-branch = log origin/master..
