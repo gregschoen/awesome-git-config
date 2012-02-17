@@ -61,11 +61,11 @@
 
 	# `git done`
 	# current branch: merge, push, non-forced delete branch, show info
-	done = !sh -c '~/bin/done -d'
+	done = !sh -c '~/bin/done -d $1' -
 	
 	# `git publish`
 	# current branch: merge, push, show info
-	publish = !sh -c '~/bin/done'
+	publish = !sh -c '~/bin/done $1' -
 
 	# `git lint`
 	# lints all .php files that are different between current branch and origin/master
