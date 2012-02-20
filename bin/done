@@ -17,7 +17,11 @@ shift `echo $OPTIND-1 | bc`
 SQUASH="save game"
 SAVEGAME_COMMITS=`git --no-pager blog --pretty=oneline | grep "$SQUASH" | wc -l`
 BRANCHNAME=`git branch-name`
-BRANCHORIG=${1-master}
+BRANCHORIG=`git config branch.$BRANCHNAME.localmerge`
+BRANCHORIG=${BRANCHORIG:-master}
+if [ ! -z $1 ]; then
+	BRANCHORIG=$1
+fi
 
 if [ $BRANCHNAME == "master" ] && [ $DELETE == "1" ]; then
 	echo -e "\033[31mYou cannot \`done\` on branch \`master\`!\033[0m"
@@ -36,6 +40,7 @@ fi
 
 if [ $SAVEGAME_COMMITS = "0" ]; then
 	echo -e "\033[32mCongrats! You have NO '$SQUASH' commits in \`$BRANCHNAME\`\033[0m"
+	echo -e "Merging with branch '$BRANCHORIG'"
 
 	git fetch origin && \
 	git rebase -p origin/$BRANCHORIG && \

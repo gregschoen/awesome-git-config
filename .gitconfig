@@ -73,7 +73,7 @@
 
 	# `git spawn my-new-branch`
 	# make new branch based on master no matter which branch is checked out
-	spawn = !sh -c 'git checkout -b $1 master' - 
+	spawn = !sh -c 'git checkout -b $1 ${2-master} && git config branch.$1.localmerge ${2-master}' - 
 
 	# `git nuke my-old-branch`
 	# (Checks out master and does a non-forced delete on the branch entered)
