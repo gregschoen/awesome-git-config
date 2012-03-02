@@ -1,9 +1,10 @@
 #!/bin/bash
 
-FILES=`git diff origin/master.. --pretty=format:"" --name-only | sed '/^$/d'`
+FILES=`git diff origin/${1-master}.. --pretty=format:"" --name-only | sed '/^$/d'`
 
 for file in $FILES
 do
+	echo -e "\033[32m>>> Checking $file\033[0m"
 	FILENAME=$(basename $file)
 	EXT=${FILENAME##*.}
 
@@ -12,6 +13,6 @@ do
 	fi
 
 	if [[ "${OUTPUT:0:25}" != "No syntax errors detected" ]]; then
-		echo $OUTPUT
+		echo -e "\033[31m>>> $OUTPUT\033[0m"
 	fi
 done
