@@ -47,14 +47,16 @@ do
 	FILENAME=$(basename $file)
 	EXT=${FILENAME##*.}
 
-	if [[ "$EXT" == "php" ]]; then
-		OUTPUT=`php -l $file`
-	fi
+	echo "Extension is $EXT"
 
-	# If we find any errors on branch, reject merge 
-	if [[ "${OUTPUT:0:25}" != "No syntax errors detected" ]]; then
-		echo -e "\033[31mDetected syntax errors! Rejecting merge. \033[0m\n$OUTPUT"
-		exit
+	if [[ $EXT == "php" ]]; then
+		OUTPUT=`php -l $file`
+
+		# If we find any errors on branch, reject merge 
+		if [[ "${OUTPUT:0:25}" != "No syntax errors detected" ]]; then
+			echo -e "\033[31mDetected syntax errors! Rejecting merge. \033[0m\n$OUTPUT"
+			exit
+		fi
 	fi
 done
 
