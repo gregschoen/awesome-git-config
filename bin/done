@@ -47,8 +47,6 @@ do
 	FILENAME=$(basename $file)
 	EXT=${FILENAME##*.}
 
-	echo "Extension is $EXT"
-
 	if [[ $EXT == "php" ]]; then
 		OUTPUT=`php -l $file`
 
