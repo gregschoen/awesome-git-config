@@ -10,9 +10,9 @@ do
 
 	if [[ "$EXT" == "php" ]]; then
 		OUTPUT=`php -l $file`
-	fi
 
-	if [[ "${OUTPUT:0:25}" != "No syntax errors detected" ]]; then
-		echo -e "\033[31m>>> $OUTPUT\033[0m"
+		if [[ "${OUTPUT:0:25}" != "No syntax errors detected" ]]; then
+			echo -e "\033[31m>>> $OUTPUT\033[0m"
+		fi
 	fi
 done
