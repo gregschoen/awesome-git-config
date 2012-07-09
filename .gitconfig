@@ -41,7 +41,7 @@
 	today-text = !git --no-pager today --no-color
 	
 	# files different from master on current branch
-	fdm = !git diff --name-status origin/master.. 
+	fdm = !git diff origin/master... --name-status
 
 	# last commit info in svn style
 	last = !git show --name-status
@@ -108,4 +108,6 @@
 	ignorecase = false
 	whitespace = cr-at-eol
 	editor = vim
-	
+
+[push]
+	default = upstream
