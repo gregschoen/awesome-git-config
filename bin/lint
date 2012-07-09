@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES=`git diff origin/${1-master}.. --pretty=format:"" --name-only | sed '/^$/d'`
+FILES=`git diff origin/${1-master}... --pretty=format:"" --name-only | sed '/^$/d'`
 
 for file in $FILES
 do
