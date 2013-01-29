@@ -83,9 +83,6 @@
 	# saves a commit in current branch: local branches you will be rebasing
 	save = !git commit -am \"save game\"
 
-	# cleanup repo
-	cleanup = !git remote prune origin && git gc && git clean -dfx
-	
 	# attempt to cleanup some common problems
 	unfuck = !git fsck && git remote prune origin && git gc --aggressive --auto
 

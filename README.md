@@ -1,10 +1,10 @@
 # Awesome Git Config
 
-> My custom .gitconfig file.
-> 
-> It has cool aliases and placeholders for ones I need to make.
-> 
-> Subject to change without warning.
+My custom .gitconfig file.
+
+It has cool aliases and placeholders for ones I need to make.
+
+Subject to change without warning.
 
 ## Installation 
 
