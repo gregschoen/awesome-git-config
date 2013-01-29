@@ -85,6 +85,9 @@
 
 	# cleanup repo
 	cleanup = !git remote prune origin && git gc && git clean -dfx
+	
+	# attempt to cleanup some common problems
+	unfuck = !git fsck && git remote prune origin && git gc --aggressive --auto
 
 	# list files changed by last commit in absolute location
 	list = !git show --pretty=format:"" --name-only | sed '/^$/d' | sed 's|^|/var/www/|g'
@@ -97,7 +100,6 @@
 
 	# awesome placeholders
 	crunk = status
-	unfuck = status
 	deploy = status
 
 [color]
@@ -108,6 +110,7 @@
 	ignorecase = false
 	whitespace = cr-at-eol
 	editor = vim
+	pager = less -x4
 
 [push]
 	default = upstream

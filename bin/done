@@ -51,9 +51,11 @@ do
 		OUTPUT=`php -l $file`
 	
 		# If we find any errors on branch, reject merge 
-		if [ "${OUTPUT:0:25}" != "No syntax errors detected" && "${OUTPUT:0:25}" != "Could not open input file"]; then
-			echo -e "\033[31mDetected syntax errors! Rejecting merge. \033[0m\n$OUTPUT"
-			exit
+		if [ "${OUTPUT:0:25}" != "No syntax errors detected" ]; then
+			if [ "${OUTPUT:0:25}" != "Could not open input file" ]; then
+				echo -e "\033[31mDetected syntax errors! Rejecting merge. \033[0m\n$OUTPUT"
+				exit
+			fi
 		fi
 	fi
 done
