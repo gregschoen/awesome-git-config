@@ -50,9 +50,11 @@ do
 	if [[ $EXT == "php" ]]; then
 		OUTPUT=`php -l $file`
 	
-		# If we find any errors on branch, reject merge 
+		# If we find any errors on branch, reject merge
 		if [ "${OUTPUT:0:25}" != "No syntax errors detected" ]; then
-			if [ "${OUTPUT:0:25}" != "Could not open input file" ]; then
+			# If the file is missing, there appears to be no output
+			# if [ "${OUTPUT:0:25}" != "Could not open input file" ]; then
+			if [ "${OUTPUT:0:25}" != "" ]; then
 				echo -e "\033[31mDetected syntax errors! Rejecting merge. \033[0m\n$OUTPUT"
 				exit
 			fi

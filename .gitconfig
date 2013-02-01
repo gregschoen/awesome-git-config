@@ -9,7 +9,7 @@
 	lg = log -p
 	rso = remote show origin
 	me = config user.name
-	
+
 	up = !git update
 	smash = !git ir
 
@@ -30,7 +30,7 @@
 	# creates a diff of current branch against supplied branch, usage: git export-branch [refbranch]
 	branch-name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
 	export-branch = !git format-patch --stdout $1 > ~/branches/`git branch-name`.diff
-	
+
 	# all commits that aren't merges on all branches
 	all = !git log --pretty=oneline --abbrev-commit --all --no-merges
 
@@ -39,7 +39,7 @@
 
 	# today's commits without formatting or paging
 	today-text = !git --no-pager today --no-color
-	
+
 	# files different from master on current branch
 	fdm = !git diff origin/master... --name-status
 
@@ -55,7 +55,7 @@
 	# `git done`
 	# current branch: merge, push, non-forced delete branch, show info
 	done = !sh -c '~/bin/done -d $1' -
-	
+
 	# `git publish`
 	# current branch: merge, push, show info
 	publish = !sh -c '~/bin/done $1' -
@@ -98,6 +98,8 @@
 	# awesome placeholders
 	crunk = status
 	deploy = status
+	crazy = status
+	stupid = status
 
 [color]
 	ui = auto
