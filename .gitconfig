@@ -84,17 +84,20 @@
 	save = !git commit -am \"save game\"
 
 	# attempt to cleanup some common problems
-	unfuck = !git fsck && git remote prune origin && git gc --aggressive --auto
+	unfuck = !git fsck && git remote prune origin && git gc
+
+	# find the top level of current repository
+	top = !git rev-parse --show-toplevel
 
 	# list files changed by last commit in absolute location
-	list = !git show --pretty=format:"" --name-only | sed '/^$/d' | sed 's|^|/var/www/|g'
+	list = !git show --pretty=format:"" --name-only | sed '/^$/d' | sed \"s|^|`git top`/|g\"
 
 	# give a count of dirty files
 	dirty = !git status --porcelain -uno | wc -l
 
 	# number of non-merge commits 
 	peeps = !git log --pretty=format:%aN --no-merges | sort | uniq -c | sort -rn
-	mergers = !git log --pretty=format:"%Cblue%aN%Creset" --merges | sort | uniq -c | sort -rn
+	mergers = !git log --pretty=format:"%Cred%aN%Creset" --merges | sort | uniq -c | sort -rn
 
 	# awesome placeholders
 	crunk = status

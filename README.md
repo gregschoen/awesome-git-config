@@ -2,7 +2,7 @@
 
 My custom .gitconfig file.
 
-It has cool aliases and placeholders for ones I need to make.
+It has cool aliases and placeholders for ones I need to make. Used mostly for a PHP workflow.
 
 Subject to change without warning.
 
