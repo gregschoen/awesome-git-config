@@ -96,7 +96,7 @@
 	dirty = !git status --porcelain -uno | wc -l
 
 	# number of non-merge commits 
-	peeps = !git log --pretty=format:%aN --no-merges | sort | uniq -c | sort -rn
+	peeps = !git log --pretty=format:"%Cblue%aN%Creset" --no-merges | sort | uniq -c | sort -rn
 	mergers = !git log --pretty=format:"%Cred%aN%Creset" --merges | sort | uniq -c | sort -rn
 
 	# awesome placeholders
