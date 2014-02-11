@@ -117,3 +117,6 @@
 
 [push]
 	default = upstream
+
+[help]
+	autocorrect = 1
